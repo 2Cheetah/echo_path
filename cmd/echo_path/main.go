@@ -4,24 +4,42 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 )
 
 func main() {
+	// Get the PATH environment variable
 	pathString := os.Getenv("PATH")
-	listOfPaths := strings.Split(pathString, ":")
+	listOfPaths := strings.Split(pathString, string(filepath.ListSeparator))
 
-	sortFlag := flag.Bool("s", false, "sort the variables")
-	sortFlagAlias := flag.Bool("sort", false, "sort the variables")
-
-	flag.Parse()
-
-	if *sortFlag || *sortFlagAlias {
+	// Sort list if sorting flag provided
+	toSort := toSort()
+	if toSort {
 		sort.Strings(listOfPaths)
 	}
 
-	for _, s := range listOfPaths {
-		fmt.Println(s)
+	// Print the paths
+	printPaths(listOfPaths)
+}
+
+func toSort() bool {
+	// Parse command-line flags
+	sortFlag := flag.Bool("s", false, "sort the variables")
+	sortFlagAlias := flag.Bool("sort", false, "sort the variables")
+	flag.Parse()
+
+	toSort := false
+	if *sortFlag || *sortFlagAlias {
+		toSort = true
+	}
+
+	return toSort
+}
+
+func printPaths(paths []string) {
+	for _, p := range paths {
+		fmt.Println(p)
 	}
 }
