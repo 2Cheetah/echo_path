@@ -5,7 +5,10 @@ Simple CLI program to print out $PATH variable as a list with ability to sort
 
 ```shell
 echo_path # To list out $PATH variables unsorted
+
 echo_path -s # To list out $PATH variables sorted
+
+echo_path -sort # To list out $PATH variables sorted
 ```
 
 # To install
