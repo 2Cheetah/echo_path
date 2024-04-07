@@ -10,22 +10,32 @@ import (
 )
 
 func main() {
-	// Parse command-line flags
-	sortFlag := flag.Bool("s", false, "sort the variables")
-	sortFlagAlias := flag.Bool("sort", false, "sort the variables")
-	flag.Parse()
-
 	// Get the PATH environment variable
 	pathString := os.Getenv("PATH")
 	listOfPaths := strings.Split(pathString, string(filepath.ListSeparator))
 
-	// Sort the paths if the sort flag is provided
-	if *sortFlag || *sortFlagAlias {
+	// Sort list if sorting flag provided
+	toSort := toSort()
+	if toSort {
 		sort.Strings(listOfPaths)
 	}
 
 	// Print the paths
 	printPaths(listOfPaths)
+}
+
+func toSort() bool {
+	// Parse command-line flags
+	sortFlag := flag.Bool("s", false, "sort the variables")
+	sortFlagAlias := flag.Bool("sort", false, "sort the variables")
+	flag.Parse()
+
+	toSort := false
+	if *sortFlag || *sortFlagAlias {
+		toSort = true
+	}
+
+	return toSort
 }
 
 func printPaths(paths []string) {
