@@ -36,11 +36,11 @@ pwd
 
 Add line to your shell config file, e.g. `~/.zshrc`, `~/.bashrc` or other:
 
-`export "$PATH:/[output from pwd]"`
+`export PATH="$PATH:/[output from pwd]"`
 
 e.g.:
 
-`export "$PATH:/workspaces/echo_path"`
+`export PATH="$PATH:/workspaces/echo_path"`
 
 Then, source the config file:
 
